@@ -4,8 +4,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
-require 'db.php'; // Adjust the path as necessary
-
+require 'db.php';
 // Get the posted data
 $postData = file_get_contents("php://input");
 $request = json_decode($postData);
