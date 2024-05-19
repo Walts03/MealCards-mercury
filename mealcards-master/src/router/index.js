@@ -79,7 +79,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHashHistory(), //using hash to convert all the route to the ".html" files.
   routes,
 });
 
