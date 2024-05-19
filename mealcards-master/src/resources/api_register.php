@@ -1,42 +1,47 @@
 <?php
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With');
 
-require 'db.php';
-// Get the posted data
-$postData = file_get_contents("php://input");
-$request = json_decode($postData);
+$method = $_SERVER['REQUEST_METHOD'];
+$input = json_decode(file_get_contents('php://input'), true);
 
-if (isset($request->username) && isset($request->password)) {
-  $username = trim($request->username);
-  $password = trim($request->password);
+$conn = mysqli_connect('feenix-mariadb.swin.edu.au', 's103808977', '300903', 's103808977_db');
 
-  if (!empty($username) && !empty($password)) {
+mysqli_set_charset($conn, 'utf8');
+
+$table = "users";
+
+$response = array(
+  "success" => false,
+  "message" => "Registration failed"
+);
+
+switch ($method) {
+  case 'POST':
+    $username = mysqli_real_escape_string($conn, $input['username']);
+    $password = mysqli_real_escape_string($conn, $input['password']);
+
     // Check if the username already exists
-    $query = $conn->prepare("SELECT COUNT(*) FROM users WHERE username = :username");
-    $query->bindParam(':username', $username);
-    $query->execute();
+    $checkUserQuery = "SELECT COUNT(*) FROM `$table` WHERE username='$username'";
+    $checkResult = mysqli_query($conn, $checkUserQuery);
+    $userCount = mysqli_fetch_array($checkResult)[0];
 
-    if ($query->fetchColumn() > 0) {
-      echo json_encode(['success' => false, 'message' => 'Username already exists']);
-      exit;
-    }
-
-    // Insert the new user into the database
-    $query = $conn->prepare("INSERT INTO users (username, password) VALUES (:username, :password)");
-    $query->bindParam(':username', $username);
-    $query->bindParam(':password', $password);
-
-    if ($query->execute()) {
-      echo json_encode(['success' => true, 'message' => 'Registration successful']);
+    if ($userCount > 0) {
+      $response['message'] = 'Username already exists';
     } else {
-      echo json_encode(['success' => false, 'message' => 'Registration failed']);
+      // Insert the new user into the database
+      $insertQuery = "INSERT INTO `$table` (username, password) VALUES ('$username', '$password')";
+      if (mysqli_query($conn, $insertQuery)) {
+        $response['success'] = true;
+        $response['message'] = 'Registration successful';
+      }
     }
-  } else {
-    echo json_encode(['success' => false, 'message' => 'Please fill all the required fields']);
-  }
-} else {
-  echo json_encode(['success' => false, 'message' => 'Invalid input']);
+    break;
+  default:
+    echo json_encode($response);
+    mysqli_close($conn);
+    exit();
 }
+
+echo json_encode($response);
+
+mysqli_close($conn);
