@@ -8,6 +8,10 @@ Like the name of the project - MealCards. This website provide various ingredien
 
 ## More Information
 
+### Learning Version
+
+This is version used for learning purposes. For this version, the database and hosting will be served through the localhost:[MealCards-localhost](https://github.com/Walts03/MealCards-localhost)
+
 ### Hosting and Database
 
 - This project is being hosted on Swinburne mercury server [Mercury](mercury.swin.edu.au)
@@ -24,6 +28,7 @@ Student ID: 103808977
 
 ## Acknowledgments
 
-- [TheMealDB](https://themealdb.com/)
-- [Mercury](mercury.swin.edu.au)
-- [MariaDB](feenix-mariadb-web.swin.edu.au)
+- API: [TheMealDB](https://themealdb.com/)
+- Hosting: [Mercury](mercury.swin.edu.au)
+- Database: [MariaDB](feenix-mariadb-web.swin.edu.au)
+- [MealCards-localhost](https://github.com/Walts03/MealCards-localhost)
