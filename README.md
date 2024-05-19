@@ -6,54 +6,24 @@ VueJS project for HD grade for Swinburne University of Technology. COS30043 - In
 
 Like the name of the project - MealCards. This website provide various ingredient meal card using TheMealDB API
 
-## Getting Started
+## More Information
 
-### Installing
+### Hosting and Database
 
-- How/where to download your program
+- This project is being hosted on Swinburne mercury server [Mercury](mercury.swin.edu.au)
+- This project using Swinburne Feenix MariaDB [MariaDB](feenix-mariadb-web.swin.edu.au)
 
-### Executing program
+### Link to the website
 
-- How to run the program
-- Step-by-step bullets
-
-```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-
-```
-command to run if program contains helper info
-```
+[MealCards](mercury.swin.edu.au/cos30043/s103808977/hd)
 
 ## Authors
 
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-## Version History
-
-- 0.2
-  - Various bug fixes and optimizations
-  - See [commit change]() or See [release history]()
-- 0.1
-  - Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+Name: Tri Trung Ton  
+Student ID: 103808977
 
 ## Acknowledgments
 
-Inspiration, code snippets, etc.
-
-- [awesome-readme](https://github.com/matiassingers/awesome-readme)
-- [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-- [dbader](https://github.com/dbader/readme-template)
-- [zenorocha](https://gist.github.com/zenorocha/4526327)
-- [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+- [TheMealDB](https://themealdb.com/)
+- [Mercury](mercury.swin.edu.au)
+- [MariaDB](feenix-mariadb-web.swin.edu.au)
