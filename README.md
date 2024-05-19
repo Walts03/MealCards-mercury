@@ -32,3 +32,4 @@ This is version used for learning purposes. For this version, the database and h
 - Hosting: [Mercury](mercury.swin.edu.au)
 - Database: [MariaDB](feenix-mariadb-web.swin.edu.au)
 - [MealCards-localhost](https://github.com/Walts03/MealCards-localhost)
+- [COS30043 - Interface Design and Development](https://github.com/Walts03/cos30043)
