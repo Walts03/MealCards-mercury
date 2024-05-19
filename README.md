@@ -23,8 +23,8 @@ This is version used for learning purposes. For this version, the database and h
 
 ## Authors
 
-Name: Tri Trung Ton  
-Student ID: 103808977
+- Name: Tri Trung Ton
+- Student ID: 103808977
 
 ## Acknowledgments
 
