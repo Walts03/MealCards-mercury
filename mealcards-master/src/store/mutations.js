@@ -37,4 +37,20 @@ export default {
       state.mealDetails[meal.idMeal] = meal;
     });
   },
+  ADD_LIKE(state, mealId) {
+    const meal = state.mealDetails[mealId] || {};
+    meal.likes = (meal.likes || 0) + 1;
+    state.mealDetails = { ...state.mealDetails, [mealId]: meal };
+  },
+  ADD_DISLIKE(state, mealId) {
+    const meal = state.mealDetails[mealId] || {};
+    meal.dislikes = (meal.dislikes || 0) + 1;
+    state.mealDetails = { ...state.mealDetails, [mealId]: meal };
+  },
+  SET_MEAL_LIKES(state, { mealId, likes, dislikes }) {
+    const meal = state.mealDetails[mealId] || {};
+    meal.likes = likes;
+    meal.dislikes = dislikes;
+    state.mealDetails = { ...state.mealDetails, [mealId]: meal };
+  },
 };

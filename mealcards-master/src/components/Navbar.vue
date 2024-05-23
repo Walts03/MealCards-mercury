@@ -6,24 +6,92 @@
       class="container mx-auto flex max-w-6xl flex-wrap items-center justify-between"
     >
       <a href="#" class="flex items-center">
-        <img
-          :src="logo"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="mr-3 h-6 text-lime-500 sm:h-9"
-        />
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"
-        />
-        <img />
+        <img :src="logo" alt="Logo" class="mr-3 h-6 text-lime-500 sm:h-9" />
         <span class="self-center whitespace-nowrap text-xl font-semibold"
           >MealCards</span
         >
       </a>
+      <button
+        @click="toggleMenu"
+        class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden focus:outline-none focus:ring-2 focus:ring-gray-200"
+        aria-controls="navbar-sticky"
+        aria-expanded="false"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="w-6 h-6"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M3 5h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2zm0 4h14a1 1 0 010 2H3a1 1 0 110-2z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+      <div
+        :class="[
+          'md:flex',
+          'w-full',
+          'md:w-auto',
+          'items-center',
+          'justify-between',
+          'md:order-1',
+          { hidden: !isMenuOpen },
+        ]"
+      >
+        <ul
+          class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium"
+        >
+          <li>
+            <router-link
+              activeClass="text-lime-700"
+              :to="{ name: 'home' }"
+              class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-lime-700"
+            >
+              Home
+            </router-link>
+          </li>
+          <li v-if="isAuthenticated">
+            <router-link
+              activeClass="text-lime-700"
+              :to="{ name: 'byName' }"
+              class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-lime-700"
+            >
+              Search
+            </router-link>
+          </li>
+          <li v-if="isAuthenticated">
+            <router-link
+              activeClass="text-lime-700"
+              :to="{ name: 'byLetter' }"
+              class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-lime-700"
+            >
+              Letter
+            </router-link>
+          </li>
+          <li v-if="isAuthenticated">
+            <router-link
+              activeClass="text-lime-700"
+              :to="{ name: 'favorites' }"
+              class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-lime-700"
+            >
+              Favorites
+            </router-link>
+          </li>
+          <li>
+            <router-link
+              activeClass="text-lime-700"
+              :to="{ name: 'ingredients' }"
+              class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-lime-700"
+            >
+              Ingredients
+            </router-link>
+          </li>
+        </ul>
+      </div>
       <div class="mt-2 sm:mt-0 sm:flex md:order-2">
         <div v-if="isAuthenticated">
           <button
@@ -51,64 +119,6 @@
           </router-link>
         </div>
       </div>
-      <div
-        class="hidden w-full items-center justify-between md:order-1 md:flex md:w-auto"
-        id="navbar-sticky"
-      >
-        <ul
-          class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:text-sm md:font-medium"
-        >
-          <li>
-            <router-link
-              activeClass="text-lime-700 "
-              :to="{ name: 'home' }"
-              class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-lime-700"
-            >
-              Home
-            </router-link>
-          </li>
-          <div v-if="isAuthenticated">
-            <li>
-              <router-link
-                activeClass="text-lime-700 "
-                :to="{ name: 'byName' }"
-                class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-lime-700"
-              >
-                Search
-              </router-link>
-            </li>
-          </div>
-          <div v-if="isAuthenticated">
-            <li>
-              <router-link
-                activeClass="text-lime-700 "
-                :to="{ name: 'byLetter' }"
-                class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-lime-700"
-              >
-                Letter
-              </router-link>
-            </li>
-          </div>
-          <li>
-            <router-link
-              activeClass="text-lime-700 "
-              v-if="isAuthenticated"
-              class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-lime-700"
-              :to="{ name: 'favorites' }"
-              >Favorites</router-link
-            >
-          </li>
-          <li>
-            <router-link
-              activeClass="text-lime-700 "
-              :to="{ name: 'ingredients' }"
-              class="block rounded py-2 pl-3 pr-4 text-gray-700 hover:bg-gray-100 md:p-0 md:hover:bg-transparent md:hover:text-lime-700"
-            >
-              Ingredients
-            </router-link>
-          </li>
-        </ul>
-      </div>
     </div>
   </nav>
 </template>
@@ -120,6 +130,7 @@ export default {
   data() {
     return {
       logo,
+      isMenuOpen: false,
     };
   },
   computed: {
@@ -129,6 +140,9 @@ export default {
   },
   methods: {
     ...mapActions(["logout"]),
+    toggleMenu() {
+      this.isMenuOpen = !this.isMenuOpen;
+    },
     logoutUser() {
       console.log("Triggering logout...");
       this.logout()
@@ -143,3 +157,57 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #333;
+}
+
+.navbar-brand .navbar-item img {
+  max-height: 3rem;
+}
+
+.navbar-burger {
+  display: none;
+}
+
+.navbar-menu {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+}
+
+.navbar-item {
+  color: #fff;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-item:hover {
+  background-color: #444;
+}
+@media (max-width: 768px) {
+  .navbar-burger {
+    display: block;
+    cursor: pointer;
+  }
+
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .navbar-menu.is-active {
+    display: flex;
+  }
+
+  .navbar-item {
+    width: 100%;
+    text-align: center;
+  }
+}
+</style>

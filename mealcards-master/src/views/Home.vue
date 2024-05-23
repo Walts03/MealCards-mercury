@@ -1,21 +1,13 @@
 <template>
-  <!-- Title -->
-  <div class="pt-32 bg-white">
-    <h1 class="text-center text-2xl font-bold text-gray-800">
-      Random Meals of the Day
-    </h1>
-  </div>
-  <!-- Tab Menu -->
-  <div
-    class="flex flex-wrap items-center overflow-x-auto overflow-y-hidden py-10 justify-center bg-white text-gray-800"
-  >
-    <p
-      rel="noopener noreferrer"
-      href="#"
-      class="flex items-center flex-shrink-0 px-5 py-3 space-x-2 text-gray-600"
+  <div class="pt-32 bg-lime-wave">
+    <h1 class="title text-center">Discover New Flavors Daily</h1>
+    <div
+      class="tab-menu flex flex-wrap items-center overflow-x-auto overflow-y-hidden py-10 justify-center text-gray-800"
     >
-      <span>Nourish Your Body, Delight Your Senses</span>
-    </p>
+      <p class="subtitle flex items-center flex-shrink-0 px-5 py-3">
+        Explore a World of Culinary Delights
+      </p>
+    </div>
   </div>
   <section class="py-10 bg-gray-100">
     <Meals :meals="meals" />
@@ -24,20 +16,69 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import Footer from "../components/Footer.vue";
-import store from "../store";
 import Meals from "../components/Meals.vue";
 import axiosClient from "../axiosClient.js";
-import { useRouter } from "vue-router";
 
 const meals = ref([]);
-const router = useRouter();
 onMounted(async () => {
+  meals.value = []; // Clear previous meals
   for (let i = 0; i < 9; i++) {
-    axiosClient
-      .get(`random.php`)
-      .then(({ data }) => meals.value.push(data.meals[0]));
+    await axiosClient.get(`random.php`).then(({ data }) => {
+      if (data && data.meals) {
+        meals.value.push(data.meals[0]);
+      }
+    });
   }
 });
 </script>
+<style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap");
+
+.bg-lime-wave {
+  background: linear-gradient(-45deg, #efffcd, #a7e9af, #f7ffe6, #d4f8e8);
+  background-size: 400% 400%;
+  animation: limeWave 16s ease infinite;
+}
+
+.title {
+  color: #4a772f;
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.7);
+  animation: fadeIn 2s ease-out;
+}
+
+.subtitle {
+  color: #424242;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  animation: fadeIn 2s ease-out 1s;
+}
+
+@keyframes limeWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+</style>

@@ -46,11 +46,27 @@
           isFavorite(meal.idMeal) ? "Remove from Favorites" : "Add to Favorites"
         }}
       </button>
+      <br /><br />
+      <button
+        v-if="isAuthenticated"
+        class="px-3 py-2 text-white rounded border-2 border-blue-600 bg-blue-700 hover:bg-blue-800 hover:text-white transition-colors"
+        @click="likeMeal(meal.idMeal)"
+      >
+        Like ({{ mealLikes.likes || 0 }})
+      </button>
+      <button
+        v-if="isAuthenticated"
+        class="px-3 py-2 ml-2 text-white rounded border-2 border-red-600 bg-red-700 hover:bg-red-800 hover:text-white transition-colors"
+        @click="dislikeMeal(meal.idMeal)"
+      >
+        Dislike ({{ mealLikes.dislikes || 0 }})
+      </button>
+
       <a
         v-if="meal.strSource !== null"
         :href="meal.strSource"
         target="_blank"
-        class="inline-block ml-3 px-3 py-2 rounded border-2 border-transparent text-indigo-600 hover:bg-indigo-500 hover:text-white transition-colors"
+        class="inline-block ml-2 px-3 py-2 rounded border-2 border-transparent text-indigo-600 hover:bg-indigo-500 hover:text-white transition-colors"
       >
         View Original Source
       </a>
@@ -63,6 +79,7 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import axiosClient from "../axiosClient";
 import { useRoute } from "vue-router";
@@ -77,12 +94,17 @@ onMounted(() => {
     meal.value = data.meals[0] || {};
   });
 });
+
 // Use Vuex store
 const store = useStore();
 
 // Map Vuex state and actions
 const favoriteMeals = computed(() => store.state.favoriteMeals);
 const isFavorite = (mealId) => favoriteMeals.value.includes(mealId);
+const mealLikes = computed(
+  () => store.state.mealDetails[meal.value.idMeal] || { likes: 0, dislikes: 0 }
+);
+const isAuthenticated = computed(() => store.getters.isAuthenticated);
 
 // Methods
 const toggleFavorite = (mealId) => {
@@ -93,8 +115,17 @@ const toggleFavorite = (mealId) => {
   }
 };
 
-// Fetch favorites when component is mounted
+const likeMeal = (mealId) => {
+  store.dispatch("likeMeal", mealId);
+};
+
+const dislikeMeal = (mealId) => {
+  store.dispatch("dislikeMeal", mealId);
+};
+
+// Fetch favorites and meal likes when component is mounted
 onMounted(() => {
   store.dispatch("fetchFavorites");
+  store.dispatch("fetchMealLikes", route.params.id);
 });
 </script>

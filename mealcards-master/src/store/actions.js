@@ -1,7 +1,8 @@
-import axiosClient from "../axiosClient";
 import { addFavorite, deleteFavorite, getFavorites } from "./favoriteService";
-
+import { likeMeal, dislikeMeal, getMealLikes } from "./voteService";
+import axiosClient from "../axiosClient";
 export default {
+  // existing actions...
   async searchMeals({ commit }, keyword) {
     if (!keyword) return; // Prevent empty queries
     try {
@@ -65,6 +66,54 @@ export default {
   },
   async fetchMealDetails({ commit }, mealId) {
     const { data } = await axiosClient.get(`lookup.php?i=${mealId}`);
-    commit("SET_FAVORITE_MEALS_DETAILS", [data.meals[0]]);
+    if (data && data.meals && data.meals[0] && data.meals[0].idMeal) {
+      commit("SET_FAVORITE_MEALS_DETAILS", [data.meals[0]]);
+    }
+  },
+  async likeMeal({ commit, state }, mealId) {
+    try {
+      const userId = state.user.id;
+      const response = await likeMeal(userId, mealId);
+      if (response.data.success) {
+        commit("SET_MEAL_LIKES", {
+          mealId,
+          likes: response.data.data.likes,
+          dislikes: response.data.data.dislikes,
+        });
+      }
+      return response.data;
+    } catch (error) {
+      console.error("Error liking meal", error);
+    }
+  },
+  async dislikeMeal({ commit, state }, mealId) {
+    try {
+      const userId = state.user.id;
+      const response = await dislikeMeal(userId, mealId);
+      if (response.data.success) {
+        commit("SET_MEAL_LIKES", {
+          mealId,
+          likes: response.data.data.likes,
+          dislikes: response.data.data.dislikes,
+        });
+      }
+      return response.data;
+    } catch (error) {
+      console.error("Error disliking meal", error);
+    }
+  },
+  async fetchMealLikes({ commit }, mealId) {
+    try {
+      const response = await getMealLikes(mealId);
+      if (response.data.success) {
+        commit("SET_MEAL_LIKES", {
+          mealId,
+          likes: response.data.data.likes,
+          dislikes: response.data.data.dislikes,
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching meal likes", error);
+    }
   },
 };
