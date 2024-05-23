@@ -14,12 +14,12 @@ This is version used for learning purposes. For this version, the database and h
 
 ### Hosting and Database
 
-- This project is being hosted on Swinburne mercury server [Mercury](mercury.swin.edu.au)
-- This project using Swinburne Feenix MariaDB [MariaDB](feenix-mariadb-web.swin.edu.au)
+- This project is being hosted on Swinburne mercury server [Mercury](https://mercury.swin.edu.au)
+- This project using Swinburne Feenix MariaDB [MariaDB](https://feenix-mariadb-web.swin.edu.au)
 
 ### Link to the website
 
-[MealCards](mercury.swin.edu.au/cos30043/s103808977/hd)
+[MealCards](https://mercury.swin.edu.au/cos30043/s103808977/hd)
 
 ## Authors
 
@@ -29,7 +29,7 @@ This is version used for learning purposes. For this version, the database and h
 ## Acknowledgments
 
 - API: [TheMealDB](https://themealdb.com/)
-- Hosting: [Mercury](mercury.swin.edu.au)
-- Database: [MariaDB](feenix-mariadb-web.swin.edu.au)
+- Hosting: [Mercury](https://mercury.swin.edu.au)
+- Database: [MariaDB](https://feenix-mariadb-web.swin.edu.au)
 - [MealCards-localhost](https://github.com/Walts03/MealCards-localhost)
 - [COS30043 - Interface Design and Development](https://github.com/Walts03/cos30043)
