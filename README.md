@@ -1,6 +1,6 @@
 # MealCards-mercury
 
-VueJS project for HD grade for Swinburne University of Technology. COS30043 - Interface Design and Development.
+VueJS project for HD grade for Swinburne University of Technology. [COS30043 - Interface Design and Development](https://github.com/Walts03/cos30043).
 
 ## Description
 
@@ -32,3 +32,4 @@ This is version used for learning purposes. For this version, the database and h
 - Hosting: [Mercury](https://mercury.swin.edu.au)
 - Database: [MariaDB](https://feenix-mariadb-web.swin.edu.au)
 - [MealCards-localhost](https://github.com/Walts03/MealCards-localhost)
+- [COS30043 - Interface Design and Development](https://github.com/Walts03/cos30043)

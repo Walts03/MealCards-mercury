@@ -4,6 +4,7 @@
     <div v-if="favoriteMealsDetails.length === 0" class="text-center">
       <p>You have no favorite meals.</p>
     </div>
+<<<<<<< HEAD
     <div v-else>
       <div class="table-responsive">
         <table class="min-w-full bg-white border border-gray-300">
@@ -78,6 +79,46 @@
           </tbody>
         </table>
       </div>
+=======
+    <div v-else class="responsive-table">
+      <table class="w-full bg-white border border-gray-300">
+        <thead>
+          <tr>
+            <th class="py-2 px-4 border-b">No.</th>
+            <th class="py-2 px-4 border-b">Image</th>
+            <th class="py-2 px-4 border-b">Name</th>
+            <th class="py-2 px-4 border-b">Area</th>
+            <th class="py-2 px-4 border-b">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(meal, index) in favoriteMealsDetails" :key="meal.idMeal">
+            <td class="py-2 px-4 border-b text-center">{{ index + 1 }}</td>
+            <td class="py-2 px-4 border-b text-center">
+              <router-link
+                :to="{ name: 'mealDetails', params: { id: meal.idMeal } }"
+              >
+                <img
+                  :src="meal.strMealThumb"
+                  :alt="meal.strMeal"
+                  class="w-16 h-16 object-cover inline-block"
+                />
+              </router-link>
+            </td>
+            <td class="py-2 px-4 border-b text-center">{{ meal.strMeal }}</td>
+            <td class="py-2 px-4 border-b text-center">{{ meal.strArea }}</td>
+            <td class="py-2 px-4 border-b text-center">
+              <button
+                @click="removeFavorite(meal.idMeal)"
+                class="bg-red-500 text-white px-2 py-1 rounded-full"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+>>>>>>> 03c21f29a8c4cb8d818eb4720a35bf69bd4c35b5
     </div>
   </div>
 </template>
@@ -116,6 +157,7 @@ onMounted(async () => {
   max-width: 1200px;
 }
 
+<<<<<<< HEAD
 .table-responsive {
   overflow-x: auto;
 }
@@ -151,6 +193,32 @@ onMounted(async () => {
     white-space: nowrap; /* Keep label on one line */
     text-align: left;
     font-weight: bold;
+=======
+.responsive-table {
+  overflow-x: auto;
+}
+
+@media (max-width: 640px) {
+  .table th,
+  .table td {
+    padding: 10px; /* Adjust padding */
+    display: block; /* Stack the table cells */
+    text-align: right;
+  }
+
+  .table th::before {
+    float: left;
+    content: attr(aria-label); /* Use aria-label to replicate the thead */
+  }
+
+  .table td::before {
+    float: left;
+    content: attr(aria-label);
+  }
+
+  .text-2xl {
+    font-size: 1.5rem; /* Smaller font size for smaller screens */
+>>>>>>> 03c21f29a8c4cb8d818eb4720a35bf69bd4c35b5
   }
 }
 </style>

@@ -88,9 +88,9 @@ export default {
       notification: {
         visible: false,
         message: "",
-        type: "success", // success, error, etc.
+        type: "success",
       },
-      logo, // Ensure you have this variable or update accordingly
+      logo,
     };
   },
   methods: {
