@@ -27,7 +27,7 @@ onMounted(async () => {
   for (let i = 0; i < 9; i++) {
     await axiosClient.get(`random.php`).then(({ data }) => {
       if (data && data.meals) {
-        meals.value.push(data.meals[0]); // Assuming response has a 'meals' array
+        meals.value.push(data.meals[0]);
       }
     });
   }

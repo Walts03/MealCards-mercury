@@ -1,7 +1,6 @@
 <?php
 header("Content-Type: application/json");
 
-
 $conn = mysqli_connect('feenix-mariadb.swin.edu.au', 's103808977', '300903', 's103808977_db');
 mysqli_set_charset($conn, 'utf8');
 // Check connection
@@ -18,7 +17,8 @@ switch ($method) {
     $mealId = $data->mealId;
     $sql = "INSERT INTO favorites (user_id, meal_id) VALUES ('$userId', '$mealId')";
     if ($conn->query($sql) === TRUE) {
-      echo json_encode(["message" => "Favorite added"]);
+      $last_id = $conn->insert_id;
+      echo json_encode(["message" => "Favorite added", "id" => $last_id]);
     } else {
       echo json_encode(["message" => "Error: " . $conn->error]);
     }

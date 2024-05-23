@@ -189,8 +189,6 @@ export default {
 .navbar-item:hover {
   background-color: #444;
 }
-
-/* Media queries for responsive design */
 @media (max-width: 768px) {
   .navbar-burger {
     display: block;

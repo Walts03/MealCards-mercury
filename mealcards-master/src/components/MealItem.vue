@@ -21,6 +21,22 @@
           isFavorite(meal.idMeal) ? "Remove from Favorites" : "Add to Favorites"
         }}
       </button>
+      <div class="mt-4">
+        <button
+          v-if="isAuthenticated"
+          class="px-3 py-2 mr-2 text-white rounded bg-blue-700 hover:bg-blue-800 hover:text-white transition-colors"
+          @click="likeMeal(meal.idMeal)"
+        >
+          Like ({{ mealLikes.likes || 0 }})
+        </button>
+        <button
+          v-if="isAuthenticated"
+          class="px-3 py-2 text-white rounded bg-red-700 hover:bg-red-800 hover:text-white transition-colors"
+          @click="dislikeMeal(meal.idMeal)"
+        >
+          Dislike ({{ mealLikes.dislikes || 0 }})
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -44,9 +60,13 @@ const store = useStore();
 // Map Vuex state and actions
 const favoriteMeals = computed(() => store.state.favoriteMeals);
 const isFavorite = (mealId) => favoriteMeals.value.includes(mealId);
+const mealLikes = computed(
+  () => store.state.mealDetails[props.meal.idMeal] || { likes: 0, dislikes: 0 }
+);
 
 // Methods
 const toggleFavorite = (mealId) => {
+  console.log("toggleFavorite called with", { mealId });
   if (isFavorite(mealId)) {
     store.dispatch("deleteFavorite", mealId);
   } else {
@@ -54,8 +74,24 @@ const toggleFavorite = (mealId) => {
   }
 };
 const isAuthenticated = computed(() => !!store.state.user);
-// Fetch favorites when component is mounted
+
+// Voting methods
+const likeMeal = (mealId) => {
+  console.log("likeMeal called with", { mealId });
+  store.dispatch("likeMeal", mealId).then(() => {
+    store.dispatch("fetchMealLikes", mealId);
+  });
+};
+const dislikeMeal = (mealId) => {
+  console.log("dislikeMeal called with", { mealId });
+  store.dispatch("dislikeMeal", mealId).then(() => {
+    store.dispatch("fetchMealLikes", mealId);
+  });
+};
+
+// Fetch favorites and meal likes when component is mounted
 onMounted(() => {
   store.dispatch("fetchFavorites");
+  store.dispatch("fetchMealLikes", props.meal.idMeal);
 });
 </script>
